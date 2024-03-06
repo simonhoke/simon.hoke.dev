@@ -7,13 +7,13 @@ export default function ToolPreview({
 }: Omit<Tool, '_id'>) {
   return (
     <div>
-      <div className="mb-5">
+      <div className="">
         <ToolImage
           name={name}
           image={picture}
         />
       </div>
-      <h3 className="mb-3 text-3xl leading-snug text-balance">
+      <h3 className="text:xl md:text-2xl leading-snug text-balance">
           {name}
       </h3>
     </div>
