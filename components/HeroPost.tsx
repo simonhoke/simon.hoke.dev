@@ -14,12 +14,12 @@ export default function HeroPost(
   return (
     <section>
       <div className="mb-8 md:mb-16">
-        <CoverImage slug={slug} title={title} image={coverImage} priority />
+        <CoverImage link="/app" title={title} image={coverImage} priority />
       </div>
       <div className="mb-20 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
         <div>
           <h3 className="mb-4 text-4xl leading-tight lg:text-6xl text-balance">
-            <Link href={`/posts/${slug}`} className="hover:underline">
+            <Link href={`/app`} className="hover:underline">
               {title || 'Untitled'}
             </Link>
           </h3>
