@@ -1,8 +1,8 @@
-import CoverImage from 'components/CoverImage'
+import SquareCoverImage from 'components/SquareCoverImage'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
-export default function PostPreview({
+export default function SquarePostPreview({
   title,
   coverImage,
   date,
@@ -13,7 +13,7 @@ export default function PostPreview({
   return (
     <div>
       <div className="mb-5">
-        <CoverImage
+        <SquareCoverImage
           slug={slug}
           title={title}
           image={coverImage}
