@@ -12,9 +12,10 @@ import {
   postBySlugQuery,
   postSlugsQuery,
   type Settings,
-  settingsQuery,
+  settingsQuery, toolQuery
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
+import { Tool } from 'sanity'
 
 export function getClient(preview?: { token: string }): SanityClient {
   const client = createClient({
@@ -50,6 +51,10 @@ export async function getSettings(client: SanityClient): Promise<Settings> {
 
 export async function getAllPosts(client: SanityClient): Promise<Post[]> {
   return (await client.fetch(indexQuery)) || []
+}
+
+export async function getAllTools(client: SanityClient): Promise<Tool[]> {
+  return (await client.fetch(toolQuery)) || []
 }
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {

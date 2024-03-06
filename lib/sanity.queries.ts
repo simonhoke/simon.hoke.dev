@@ -1,5 +1,11 @@
 import { groq } from 'next-sanity'
 
+const toolFields = groq`
+  _id,
+  name,
+  picture,
+`
+
 const postFields = groq`
   _id,
   title,
@@ -16,6 +22,11 @@ export const settingsQuery = groq`*[_type == "settings"][0]`
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
   ${postFields}
+}`
+
+export const toolQuery = groq`
+*[_type == "tool"] | order(name desc) {
+  ${toolFields}
 }`
 
 export const postAndMoreStoriesQuery = groq`
@@ -55,6 +66,12 @@ export interface Post {
   author?: Author
   slug?: string
   content?: any
+}
+
+export interface Tool {
+  _id: string
+  name?: string
+  picture?: any
 }
 
 export interface Settings {
