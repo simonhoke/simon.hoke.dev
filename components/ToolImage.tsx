@@ -17,16 +17,16 @@ export default function CoverImage(props: ToolImageProps) {
       })}
     >
       <Image
-        className="h-auto w-full"
-        width={200}
+        className=""
+        width={100}
         height={100}
         alt=""
-        src={urlForImage(source).height(100).width(200).url()}
+        src={urlForImage(source).height(100).width(100).url()}
         sizes="20vw"
       />
     </div>
   ) : (
-    <div style={{ paddingTop: '50%', backgroundColor: '#ddd' }} />
+    <div style={{ paddingTop: '10%', backgroundColor: '#ddd' }} />
   )
 
   return (
