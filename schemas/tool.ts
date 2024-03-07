@@ -1,5 +1,5 @@
 import { CogIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'tool',
@@ -26,5 +26,13 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      title: "Tags",
+      name: "tags",
+      type: "array",
+      of: [
+        defineArrayMember({ type: "string" })
+      ]
+    })
   ],
 })
