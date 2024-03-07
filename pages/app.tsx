@@ -50,10 +50,10 @@ export default function ProjectSlugRoute(props: PageProps) {
 export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
-  const query = ctx['query']['comment']
+  const query = ctx['query']['comment'] ?? ""
 
   const [ tools, settings] = await Promise.all([
-    getToolsByQuery(client, query),
+    query != null && query != "" ? getToolsByQuery(client, query) : getAllTools(client),
     getSettings(client),
   ])
   

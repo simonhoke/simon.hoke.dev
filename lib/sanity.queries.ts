@@ -29,6 +29,11 @@ export const toolQuery = groq`
   ${toolFields}
 }`
 
+export const relevantToolQuery = groq`
+*[_type == "tool" && $q in tags] | order(name desc) {
+  ${toolFields}
+}`
+
 export const postAndMoreStoriesQuery = groq`
 {
   "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
