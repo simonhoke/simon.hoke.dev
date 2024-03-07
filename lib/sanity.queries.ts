@@ -1,5 +1,11 @@
 import { groq } from 'next-sanity'
 
+const tagFields = groq`
+  _id,
+  name,
+  tags
+`
+
 const toolFields = groq`
   _id,
   name,
@@ -29,8 +35,13 @@ export const toolQuery = groq`
   ${toolFields}
 }`
 
+export const relevantTagQuery = groq`
+*[_type == "tag" && tags match query] | order(name desc) {
+  ${tagFields}
+}`
+
 export const relevantToolQuery = groq`
-*[_type == "tool" && $q in tags] | order(name desc) {
+*[_type == "tool" && tags match queryTags] | order(name desc) {
   ${toolFields}
 }`
 
@@ -55,6 +66,11 @@ export const postBySlugQuery = groq`
   ${postFields}
 }
 `
+
+export interface Tag {
+  name: string
+  tags: string[]
+}
 
 export interface Author {
   name?: string

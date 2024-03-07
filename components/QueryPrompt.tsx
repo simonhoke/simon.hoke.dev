@@ -1,6 +1,3 @@
-import type { Tool } from '../lib/sanity.queries'
-import { GearListProps } from './GearList'
-
 export interface QueryPromptProps {
   query: string
 }
@@ -18,7 +15,7 @@ export default function QueryPrompt(props: QueryPromptProps) {
               rows={3}
               name="comment"
               id="comment"
-              className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border-transparent focus:border-transparent focus:ring-0"
+              className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 text-2xl sm:leading-6 border-transparent focus:border-transparent focus:ring-0"
               placeholder={props.query}
               defaultValue={props.query}
             />

@@ -10,9 +10,10 @@ import {
   type Post,
   postAndMoreStoriesQuery,
   postBySlugQuery,
-  postSlugsQuery, relevantToolQuery,
+  postSlugsQuery, relevantTagQuery, relevantToolQuery,
   type Settings,
-  settingsQuery, toolQuery
+  settingsQuery,   type Tag,
+toolQuery
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 import { Tool } from 'sanity'
@@ -53,12 +54,16 @@ export async function getAllPosts(client: SanityClient): Promise<Post[]> {
   return (await client.fetch(indexQuery)) || []
 }
 
+export async function getTagsByQuery(client: SanityClient, query: string): Promise<Tag[]> {
+  return (await client.fetch(relevantTagQuery, query)) || []
+}
+
 export async function getAllTools(client: SanityClient): Promise<Tool[]> {
   return (await client.fetch(toolQuery)) || []
 }
 
-export async function getToolsByQuery(client: SanityClient, q: string): Promise<Tool[]> {
-  return (await client.fetch(relevantToolQuery, { q })) || []
+export async function getToolsByTags(client: SanityClient, queryTags: Tag[]): Promise<Tool[]> {
+  return (await client.fetch(relevantToolQuery, queryTags)) || []
 }
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {

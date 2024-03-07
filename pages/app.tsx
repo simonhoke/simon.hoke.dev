@@ -2,7 +2,7 @@ import { readToken } from 'lib/sanity.api'
 import {
   getAllTools,
   getClient,
-  getSettings, getToolsByQuery
+  getSettings, getTagsByQuery, getToolsByTags
 } from 'lib/sanity.client'
 import { Settings,Tool } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -20,6 +20,7 @@ interface PageProps extends SharedPageProps {
   tools: Tool[]
   settings?: Settings
   query: string
+  response: string
 }
 
 interface Query {
@@ -27,7 +28,7 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { tools, settings, query } = props
+  const { tools, settings, query, response } = props
   return     <>
     <IndexPageHead settings={settings} />
 
@@ -37,6 +38,7 @@ export default function ProjectSlugRoute(props: PageProps) {
         <div className="mb-16 grid grid-cols-2 xl:grid-cols-4">
           <div className="col-span-2">
             <QueryPrompt query={query}></QueryPrompt>
+            <h2 className="text-xl border-2 border-amber-600 rounded-2xl p-4 m-4">{response}</h2>
           </div>
         </div>
 
@@ -52,16 +54,23 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const query = ctx['query']['comment'] ?? ""
 
+  const [ tags ] = await Promise.all([
+    getTagsByQuery(client, query)
+  ])
+
   const [ tools, settings] = await Promise.all([
-    query != null && query != "" ? getToolsByQuery(client, query) : getAllTools(client),
+    tags != null && tags.length > 0 ? getToolsByTags(client, tags) : getAllTools(client),
     getSettings(client),
   ])
-  
+
+  const response = "Describe your adventure and let's make it happen"
+
   return {
     props: {
       tools,
       settings,
-      query
+      query,
+      response
     },
   }
 }
