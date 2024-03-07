@@ -57,6 +57,12 @@ export async function getAllTools(client: SanityClient): Promise<Tool[]> {
   return (await client.fetch(toolQuery)) || []
 }
 
+export async function getToolsByQuery(client: SanityClient, query: string): Promise<Tool[]> {
+  const allTools = (await client.fetch(toolQuery)) || []
+
+  return allTools
+}
+
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
   const client = getClient()
   const slugs = (await client.fetch<string[]>(postSlugsQuery)) || []

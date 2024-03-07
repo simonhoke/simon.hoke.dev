@@ -2,7 +2,7 @@ import { readToken } from 'lib/sanity.api'
 import {
   getAllTools,
   getClient,
-  getSettings
+  getSettings, getToolsByQuery
 } from 'lib/sanity.client'
 import { Settings,Tool } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -36,7 +36,7 @@ export default function ProjectSlugRoute(props: PageProps) {
         <BlogHeader title={"Simon Hoke"} description={description} level={2} />
         <div className="mb-16 grid grid-cols-2 xl:grid-cols-4">
           <div className="col-span-2">
-            <QueryPrompt></QueryPrompt>
+            <QueryPrompt query={query}></QueryPrompt>
           </div>
         </div>
 
@@ -53,7 +53,7 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   const query = ctx['query']['comment']
 
   const [ tools, settings] = await Promise.all([
-    getAllTools(client),
+    getToolsByQuery(client, query),
     getSettings(client),
   ])
   

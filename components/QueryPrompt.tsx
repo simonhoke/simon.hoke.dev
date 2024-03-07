@@ -1,4 +1,11 @@
-export default function QueryPrompt() {
+import type { Tool } from '../lib/sanity.queries'
+import { GearListProps } from './GearList'
+
+export interface QueryPromptProps {
+  query: string
+}
+
+export default function QueryPrompt(props: QueryPromptProps) {
   return (
     <div className="flex items-start space-x-4">
       <div className="min-w-0 flex-1">
@@ -12,8 +19,8 @@ export default function QueryPrompt() {
               name="comment"
               id="comment"
               className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 border-transparent focus:border-transparent focus:ring-0"
-              placeholder="Describe your adventure"
-              defaultValue={''}
+              placeholder={props.query}
+              defaultValue={props.query}
             />
 
             {/* Spacer element to match the height of the toolbar */}
