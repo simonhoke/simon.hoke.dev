@@ -3,7 +3,7 @@ import { getAllTools, getClient, getSettings } from 'lib/sanity.client'
 import { Settings, Tool } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
-import GearPlannerPage from '../components/GearPlannerPage'
+import GearList from '../components/GearList'
 
 interface PageProps extends SharedPageProps {
   tool: Tool[]
@@ -17,7 +17,7 @@ interface Query {
 export default function Page(props: PageProps) {
   const { settings, tool } = props
 
-  return <GearPlannerPage tools={tool} settings={settings} />
+  return <GearList tools={tool} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
