@@ -11,7 +11,6 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       title: "Tag Expansion",

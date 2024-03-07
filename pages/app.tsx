@@ -54,16 +54,29 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   const client = getClient(draftMode ? { token: readToken } : undefined)
   const query = ctx['query']['comment'] ?? ""
 
+  let response = "Create your adventure"
+
   const [ tags ] = await Promise.all([
     getTagsByQuery(client, query)
   ])
 
+  if (tags != null && tags.length > 0) {
+    if (tags.length == 0) {
+      response = query + "No tags detected, showing all gear"
+    }
+    if (tags.length == 1) {
+
+      response = "Showing gear for " + tags[0].tags
+    }
+    if (tags.length > 1) {
+      response = "todo: support more tags"
+    }
+  }
+
   const [ tools, settings] = await Promise.all([
-    tags != null && tags.length > 0 ? getToolsByTags(client, tags) : getAllTools(client),
+    tags != null && tags.length == 1 ? getToolsByTags(client, tags[0].tags) : getAllTools(client),
     getSettings(client),
   ])
-
-  const response = "Describe your adventure and let's make it happen"
 
   return {
     props: {

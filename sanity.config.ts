@@ -21,6 +21,7 @@ import authorType from 'schemas/author'
 import postType from 'schemas/post'
 import settingsType from 'schemas/settings'
 import toolType from 'schemas/tool'
+import tagType from 'schemas/tag'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Simon Hoke'
@@ -32,7 +33,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, postType, toolType, settingsType],
+    types: [authorType, postType, toolType, tagType, settingsType],
   },
   plugins: [
     structureTool({

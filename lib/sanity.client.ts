@@ -55,15 +55,16 @@ export async function getAllPosts(client: SanityClient): Promise<Post[]> {
 }
 
 export async function getTagsByQuery(client: SanityClient, query: string): Promise<Tag[]> {
-  return (await client.fetch(relevantTagQuery, query)) || []
+  return (await client.fetch(relevantTagQuery, { query })) || []
 }
 
 export async function getAllTools(client: SanityClient): Promise<Tool[]> {
   return (await client.fetch(toolQuery)) || []
 }
 
-export async function getToolsByTags(client: SanityClient, queryTags: Tag[]): Promise<Tool[]> {
-  return (await client.fetch(relevantToolQuery, queryTags)) || []
+export async function getToolsByTags(client: SanityClient, queryTags: string[]): Promise<Tool[]> {
+  console.log(queryTags)
+  return (await client.fetch(relevantToolQuery, { queryTags })) || []
 }
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {

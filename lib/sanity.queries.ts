@@ -36,12 +36,12 @@ export const toolQuery = groq`
 }`
 
 export const relevantTagQuery = groq`
-*[_type == "tag" && tags match query] | order(name desc) {
+*[_type == "tag" && name == $query] | order(name desc) {
   ${tagFields}
 }`
 
 export const relevantToolQuery = groq`
-*[_type == "tool" && tags match queryTags] | order(name desc) {
+*[_type == "tool" && tags match $queryTags] | order(name desc) {
   ${toolFields}
 }`
 
