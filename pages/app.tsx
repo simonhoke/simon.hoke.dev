@@ -41,7 +41,7 @@ export default function ProjectSlugRoute(props: PageProps) {
 
       <Layout preview={false} loading={false}>
         <Container>
-          <BlogHeader title={"Simon Hoke"} description={description} level={2} />
+          <BlogHeader title={"Our Adventure"} description={description} level={2} />
           <div className="mb-4 grid grid-cols-2 xl:grid-cols-4">
             <div className="col-span-2">
               <QueryPrompt query={query}></QueryPrompt>
@@ -65,7 +65,7 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   let response = "Create your adventure"
 
   const [ tags ] = await Promise.all([
-    getTagsByQuery(client, query.toLowerCase())
+    getTagsByQuery(client, query.toLowerCase().trim())
   ])
 
   if (tags != null && tags.length > 0) {
