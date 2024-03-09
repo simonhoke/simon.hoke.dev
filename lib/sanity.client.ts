@@ -63,8 +63,10 @@ export async function getAllTools(client: SanityClient): Promise<Tool[]> {
 }
 
 export async function getToolsByTags(client: SanityClient, queryTags: string[]): Promise<Tool[]> {
-  console.log(queryTags)
-  return (await client.fetch(relevantToolQuery, { queryTags })) || []
+  const queries = queryTags.map((tag) => client.fetch(relevantToolQuery, { queryTags: [tag] }));
+  const results = await Promise.all(queries);
+
+  return results.flat() || [];
 }
 
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
