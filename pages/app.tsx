@@ -30,27 +30,32 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { tools, settings, query, response, avyReport } = props
+  let { tools, settings, query, response, avyReport } = props;
 
-  return     <>
-    <IndexPageHead settings={settings} />
+  let queryLower = query.toLowerCase()
+  const showAvyReport = queryLower.includes("ski");
 
-    <Layout preview={false} loading={false}>
-      <Container>
-        <BlogHeader title={"Simon Hoke"} description={description} level={2} />
-        <div className="mb-4 grid grid-cols-2 xl:grid-cols-4">
-          <div className="col-span-2">
-            <QueryPrompt query={query}></QueryPrompt>
-            <h2 className="text-xl border-2 border-amber-600 rounded-2xl p-4 m-4">{response}</h2>
+  return (
+    <>
+      <IndexPageHead settings={settings} />
+
+      <Layout preview={false} loading={false}>
+        <Container>
+          <BlogHeader title={"Simon Hoke"} description={description} level={2} />
+          <div className="mb-4 grid grid-cols-2 xl:grid-cols-4">
+            <div className="col-span-2">
+              <QueryPrompt query={query}></QueryPrompt>
+              <h2 className="text-xl border-2 border-amber-600 rounded-2xl p-4 m-4">{response}</h2>
+            </div>
           </div>
-        </div>
-        <AvyReport report={avyReport}></AvyReport>
-        <GearList tools={tools}></GearList>
-      </Container>
-    </Layout>
-  </>
-
+          {showAvyReport && <AvyReport report={avyReport}></AvyReport>}
+          <GearList tools={tools}></GearList>
+        </Container>
+      </Layout>
+    </>
+  );
 }
+
 
 export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
@@ -60,7 +65,7 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   let response = "Create your adventure"
 
   const [ tags ] = await Promise.all([
-    getTagsByQuery(client, query)
+    getTagsByQuery(client, query.toLowerCase())
   ])
 
   if (tags != null && tags.length > 0) {
@@ -69,7 +74,7 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
     }
     if (tags.length == 1) {
 
-      response = "Showing gear for " + tags[0].tags
+      response = "Here's some gear for a " + tags[0].tags
     }
     if (tags.length > 1) {
       response = "todo: support more tags"
