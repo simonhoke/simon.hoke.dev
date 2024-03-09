@@ -12,7 +12,7 @@ export default function QueryPrompt(props: QueryPromptProps) {
               Describe your adventure
             </label>
             <textarea
-              rows={3}
+              rows={1}
               name="comment"
               id="comment"
               className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 text-2xl sm:leading-6 border-transparent focus:border-transparent focus:ring-0"
@@ -21,7 +21,7 @@ export default function QueryPrompt(props: QueryPromptProps) {
             />
 
             {/* Spacer element to match the height of the toolbar */}
-            <div className="py-2" aria-hidden="true">
+            <div className="py-0" aria-hidden="true">
               {/* Matches height of button in toolbar (1px border + 36px content height) */}
               <div className="py-px">
                 <div className="h-9" />
