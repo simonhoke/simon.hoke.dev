@@ -32,14 +32,13 @@ interface Query {
 export default function ProjectSlugRoute(props: PageProps) {
   const { tools, settings, query, response, avyReport } = props
 
-  console.log("app avyReport: " + avyReport)
   return     <>
     <IndexPageHead settings={settings} />
 
     <Layout preview={false} loading={false}>
       <Container>
         <BlogHeader title={"Simon Hoke"} description={description} level={2} />
-        <div className="mb-16 grid grid-cols-2 xl:grid-cols-4">
+        <div className="mb-4 grid grid-cols-2 xl:grid-cols-4">
           <div className="col-span-2">
             <QueryPrompt query={query}></QueryPrompt>
             <h2 className="text-xl border-2 border-amber-600 rounded-2xl p-4 m-4">{response}</h2>
@@ -93,7 +92,6 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
   }
 
   const avyReport = avyReportData
-  console.log("get props avy report: " + avyReport.length)
 
   return {
     props: {

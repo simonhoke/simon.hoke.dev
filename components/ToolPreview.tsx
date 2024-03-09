@@ -1,21 +1,16 @@
-import ToolImage from 'components/ToolImage'
-import type { Tool } from 'lib/sanity.queries'
+// ToolPreview.tsx
+import ToolImage from 'components/ToolImage';
+import type { Tool } from 'lib/sanity.queries';
 
-export default function ToolPreview({
-  name,
-  picture,
-}: Omit<Tool, '_id'>) {
+interface ToolPreviewProps extends Omit<Tool, '_id'> {}
+
+export default function ToolPreview(props: ToolPreviewProps) {
+  const { name, picture } = props;
+
   return (
-    <div>
-      <div className="">
-        <ToolImage
-          name={name}
-          image={picture}
-        />
-      </div>
-      <h3 className="text:xl md:text-2xl leading-snug text-balance">
-          {name}
-      </h3>
+    <div className="flex flex-col items-center">
+      <ToolImage name={name} image={picture} />
+      <h3 className="text-lg md:text-xl leading-snug text-balance">{name}</h3>
     </div>
-  )
+  );
 }

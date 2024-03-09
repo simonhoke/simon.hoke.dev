@@ -1,18 +1,19 @@
-import ToolPreview from 'components/ToolPreview'
-import type { Tool } from 'lib/sanity.queries'
+// Tools.tsx
+import ToolPreview from 'components/ToolPreview';
+import type { Tool } from 'lib/sanity.queries';
 
-export default function Tools({ tools }: { tools: Tool[] }) {
+interface ToolsProps {
+  tools: Tool[];
+}
+
+export default function Tools({ tools }: ToolsProps) {
   return (
     <section>
-      <div className="grid grid-cols-4 md:grid-cols-6">
+      <div className="grid grid-cols-6 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-12">
         {tools.map((tool) => (
-          <ToolPreview
-            key={tool._id}
-            name={tool.name}
-            picture={tool.picture}
-          />
+          <ToolPreview key={tool._id} name={tool.name} picture={tool.picture} />
         ))}
       </div>
     </section>
-  )
+  );
 }
