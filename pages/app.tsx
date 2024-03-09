@@ -15,12 +15,14 @@ import GearList from '../components/GearList'
 import IndexPageHead from '../components/IndexPageHead'
 import QueryPrompt from '../components/QueryPrompt'
 import { description } from '../lib/demo.data'
+import AvyReport from '../components/AvyReport'
 
 interface PageProps extends SharedPageProps {
   tools: Tool[]
   settings?: Settings
   query: string
   response: string
+  avyReport: string
 }
 
 interface Query {
@@ -28,7 +30,9 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { tools, settings, query, response } = props
+  const { tools, settings, query, response, avyReport } = props
+
+  console.log("app avyReport: " + avyReport)
   return     <>
     <IndexPageHead settings={settings} />
 
@@ -41,7 +45,7 @@ export default function ProjectSlugRoute(props: PageProps) {
             <h2 className="text-xl border-2 border-amber-600 rounded-2xl p-4 m-4">{response}</h2>
           </div>
         </div>
-
+        <AvyReport report={avyReport}></AvyReport>
         <GearList tools={tools}></GearList>
       </Container>
     </Layout>
@@ -78,12 +82,26 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
     getSettings(client),
   ])
 
+  let avyReportData = ""
+  const avyReportCall = await fetch("https://api.avalanche.org/v2/public/product?type=forecast&center_id=NWAC&zone_id=423");
+
+  if (avyReportCall.ok) {
+    avyReportData = await avyReportCall.text()
+  } else {
+    // Handle the error if needed
+    console.error("Failed to fetch avalanche report");
+  }
+
+  const avyReport = avyReportData
+  console.log("get props avy report: " + avyReport.length)
+
   return {
     props: {
       tools,
       settings,
       query,
-      response
+      response,
+      avyReport
     },
   }
 }
