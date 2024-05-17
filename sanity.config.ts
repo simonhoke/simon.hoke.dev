@@ -20,8 +20,8 @@ import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import authorType from 'schemas/author'
 import postType from 'schemas/post'
 import settingsType from 'schemas/settings'
-import toolType from 'schemas/tool'
 import tagType from 'schemas/tag'
+import toolType from 'schemas/tool'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Simon Hoke'
